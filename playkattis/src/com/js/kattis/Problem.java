@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Problem {
+	/*
+	 * Selling Spatulas
+	 */
     private static Scanner sc;
     private static ArrayList<Integer> timeList;
     private static ArrayList<Float> salesList;

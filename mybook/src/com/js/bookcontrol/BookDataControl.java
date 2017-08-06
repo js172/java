@@ -39,9 +39,9 @@ public class BookDataControl {
 	}
 	
 	public List<Book> searchBook(String book){
-		String sql = "SELECT * FROM book WHERE bookname = ?";
+		String sql = "SELECT * FROM book WHERE bookname LIKE ?";
 		bookDao = new BookDao();
-		return bookDao.getList(sql,book);
+		return bookDao.getList(sql,"%" + book +"%");
 	}
 	
 	public void updateBook(Book book){
