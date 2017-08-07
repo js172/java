@@ -32,9 +32,9 @@ public class BookAddWindow extends JDialog implements ActionListener{
 	public BookAddWindow(Frame owner, String title, boolean modal, BookDataModel bdm, int rowNum) {
 		super(owner, title, modal);
 		jlb1 = new JLabel("Book Name:");
-		jlb2 = new JLabel("Buy Price:");
-		jlb3 = new JLabel("Sell Price:");
-		jlb4 = new JLabel("Amount:");
+		jlb2 = new JLabel("Price (Purchase):");
+		jlb3 = new JLabel("Price (Sales):");
+		jlb4 = new JLabel("Quantity (Purchase):");
 		if(rowNum != -1){
 			jtf1 = new JTextField((String) bdm.getValueAt(rowNum, 0));
 			jtf1.setEditable(false);

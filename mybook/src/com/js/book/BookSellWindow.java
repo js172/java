@@ -32,7 +32,7 @@ public class BookSellWindow extends JDialog implements ActionListener{
 		super(owner, title, modal);
 		bookDataModel=bdm;
 		rownum=rowNum;
-		jlb1 = new JLabel("Number of Selling");
+		jlb1 = new JLabel("Quantity (Sales)");
 		jtf1 = new JTextField(10);
 		jbt1 = new JButton("confirm");
 		jbt1.addActionListener(this);
@@ -67,7 +67,7 @@ public class BookSellWindow extends JDialog implements ActionListener{
 				book.setBookNum(num);
 				dataControl.addBookToDB(book,BookManageWindow.DB_SELLBOOK);
 			}else{
-				JOptionPane.showMessageDialog(this, "Book is not enough to sell!");
+				JOptionPane.showMessageDialog(this, "Not enough for sales!");
 				return;
 			}
 				

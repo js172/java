@@ -21,13 +21,17 @@ public class BookDataModel extends AbstractTableModel{
 	public void init(String ... strs){
 		columnNames = new Vector<Object>();
 		columnNames.add("Book");
-		columnNames.add("Buy Price");
-		columnNames.add("Sell Price");
+		columnNames.add("Price(Purchase)");
+		columnNames.add("Price(Sales)");
 		if(strs.length==1 && strs[0] != BookManageWindow.DB_BOOK){
-			columnNames.add("Amount");
+			if(strs[0] == BookManageWindow.DB_BUYBOOK){
+				columnNames.add("Quantity (Purchase)");
+			}else if(strs[0] == BookManageWindow.DB_SELLBOOK){
+				columnNames.add("Quantity (Sales)");
+			}
 			columnNames.add("Date");
 		}else{
-			columnNames.add("Remain");
+			columnNames.add("Quantity in Stock");
 		}
 		rowData = new Vector<Object>();
 		if(strs.length==1){

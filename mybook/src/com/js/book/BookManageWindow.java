@@ -115,7 +115,7 @@ public class BookManageWindow extends JFrame implements ActionListener{
 		}else if(e.getSource()==jbt2){
 			//buy books from book store
 			int rowNum = this.jtb.getSelectedRow();
-			new BookAddWindow(this,"Add a book",true,bdm,rowNum);
+			new BookAddWindow(this,"Add books",true,bdm,rowNum);
 			jlb2.setText("Main Page");
 			bdm = bookModelControl.getBookDataModel(DB_BOOK);
 			jtb.setModel(bdm);
@@ -127,7 +127,7 @@ public class BookManageWindow extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(this, "Please select a book to sell");
 				return;
 			}
-			new BookSellWindow(this,"Add a book",true,bdm,rowNum);
+			new BookSellWindow(this,"Sell books",true,bdm,rowNum);
 			jlb2.setText("Main Page");
 			bdm = bookModelControl.getBookDataModel(DB_BOOK);
 			jtb.setModel(bdm);
@@ -173,7 +173,7 @@ public class BookManageWindow extends JFrame implements ActionListener{
 			if(statisticProf.equalsIgnoreCase(STATISTIC_COST)){
 				jlb3.setText("Today's Total Cost : " + list.get(1).toString());
 			}else if(statisticProf.equalsIgnoreCase(STATISTIC_PROF)){
-				jlb3.setText("Today's Total Profit:" + list.get(1).toString() + "  Net Profit:" +  list.get(0).toString());
+				jlb3.setText("Today's Gross Sales:" + list.get(1).toString() + "  Net Profit:" +  list.get(0).toString());
 			}
 		}
 		
