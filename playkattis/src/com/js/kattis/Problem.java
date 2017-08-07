@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Problem {
 	/*
-	 * Selling Spatulas
+	 * Kattis:Selling Spatulas
 	 */
     private static Scanner sc;
     private static ArrayList<Integer> timeList;
