@@ -11,9 +11,6 @@ import com.js.book.DateSearch;
 import com.js.bookcontrol.BookDataControl;
 
 public class BookDataModel extends AbstractTableModel{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	Vector<Object> rowData, columnNames;
 	List<Book> bookList=null;

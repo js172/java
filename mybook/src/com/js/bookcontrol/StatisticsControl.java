@@ -11,7 +11,6 @@ import com.js.datamodel.BookDataModel;
 
 public class StatisticsControl {
 	public static List<Float> getStatistics(BookDataModel bdm, JTable jtb, String statistic) {
-		// TODO Auto-generated method stub
 		float netProf = 0f;
 		float totalPrice = 0f;
 		List<Float> list = new ArrayList<>();

@@ -16,9 +16,6 @@ import com.js.bookcontrol.BookDataControl;
 import com.js.datamodel.BookDataModel;
 
 public class BookSellWindow extends JDialog implements ActionListener{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	JLabel jlb1;
 	JTextField jtf1;

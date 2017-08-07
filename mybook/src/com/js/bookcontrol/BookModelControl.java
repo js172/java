@@ -14,7 +14,6 @@ public class BookModelControl {
 	}
 
 	public BookDataModel getBookDataModel(String db, DateSearch dateSearch) {
-		// TODO Auto-generated method stub
 		return new BookDataModel(db,dateSearch);
 	}
 

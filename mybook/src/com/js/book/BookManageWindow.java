@@ -23,9 +23,6 @@ import com.js.bookcontrol.StatisticsControl;
 import com.js.datamodel.BookDataModel;
 
 public class BookManageWindow extends JFrame implements ActionListener{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	JPanel jp1,jp2,jp3;
 	JLabel jlb1,jlb2,jlb3;

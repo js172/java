@@ -1,13 +1,9 @@
 package com.js.bookcontrol;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import com.js.Dao.BookDao;
 import com.js.book.Book;
-import com.js.book.BookManageWindow;
 
 public class BookDataControl {
 	BookDao bookDao=null;
