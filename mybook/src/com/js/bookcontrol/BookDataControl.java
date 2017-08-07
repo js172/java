@@ -24,18 +24,9 @@ public class BookDataControl {
 	}
 
 	public List<Book> getBooks(String db){
-		if(db.equalsIgnoreCase(BookManageWindow.DB_BOOK)){
 			String sql = "SELECT * FROM " + db;
 			bookDao = new BookDao();
 			return bookDao.getList(sql);
-		}else{
-			String sql = "SELECT * FROM " + db + " WHERE DATE(time) = ?";
-			Date date = new Date();
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			String today = dateFormat.format(date);
-			bookDao = new BookDao();
-			return bookDao.getList(sql,today);
-		}
 	}
 	
 	public List<Book> searchBook(String book){
@@ -55,6 +46,13 @@ public class BookDataControl {
 		String sql = "INSERT INTO "+db+" (bookname,buyprice,sellprice,booknum) VALUES (?,?,?,?)";
 		bookDao = new BookDao();
 		bookDao.update(sql, book.getBookName(), book.getBuyPrice(),book.getSellPrice(), book.getBookNum());
+	}
+
+	public List<Book> getBooks(String db, String date) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM " + db + " WHERE DATE(time) LIKE ?";
+		bookDao = new BookDao();
+		return bookDao.getList(sql,"%"+date+"%");
 	}
 
 }

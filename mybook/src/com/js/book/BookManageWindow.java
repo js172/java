@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,10 +29,11 @@ public class BookManageWindow extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	JPanel jp1,jp2,jp3;
 	JLabel jlb1,jlb2,jlb3;
-	JButton jbt1,jbt2,jbt3,jbt4,jbt5,jbt6,jbt7;
+	JButton jbt1,jbt2,jbt3,jbt4,jbt5,jbt6,jbt7,jbt8;
 	JTable jtb;
 	JScrollPane jsp1;
-	JTextField jtf;
+	JTextField jtf,jtf1;
+    JComboBox<String> comboBox;
 	BookDataModel bdm;
 	BookModelControl bookModelControl;
 	public static final String HANDLE_SEARCH = "search";
@@ -40,6 +43,7 @@ public class BookManageWindow extends JFrame implements ActionListener{
 	public static final String DB_BOOK = "book";
 	public static final String STATISTIC_COST = "cost";
 	public static final String STATISTIC_PROF = "prof";
+	DateSearch dateSearch;
 	List<Float> list;
 	Date date;
 	DateFormat dateFormat;
@@ -69,12 +73,21 @@ public class BookManageWindow extends JFrame implements ActionListener{
 		jbt6.addActionListener(this);
 		jbt7 = new JButton("Today's Profit");
 		jbt7.addActionListener(this);
+		jtf1 = new JTextField(10);
+		comboBox=new JComboBox<>();  
+	    comboBox.addItem("Cost");  
+	    comboBox.addItem("Profit");  
+		jbt8 = new JButton("search");
+		jbt8.addActionListener(this);
 		
 		jp2.add(jbt2);
 		jp2.add(jbt3);
 //		jp2.add(jbt4);
 		jp2.add(jbt6);
 		jp2.add(jbt7);
+		jp2.add(jtf1);
+		jp2.add(comboBox);
+		jp2.add(jbt8);
 		
 		bookModelControl = new BookModelControl();
 		bdm = bookModelControl.getBookDataModel(DB_BOOK);
@@ -82,7 +95,7 @@ public class BookManageWindow extends JFrame implements ActionListener{
 		
 		jp3=new JPanel();
 		jlb2 = new JLabel("Main Page");
-		jlb2.setBounds(350, 0, 100, 50);
+		jlb2.setBounds(350, 0, 200, 50);
 		jsp1=new JScrollPane(jtb);
 		jsp1.setBounds(0, 50, 800, 340);
 		jlb3 = new JLabel();
@@ -152,15 +165,40 @@ public class BookManageWindow extends JFrame implements ActionListener{
 		}else if(e.getSource()==jbt6){
 			//list books were added today
 			jlb2.setText("Today's Cost");
-			bdm = bookModelControl.getBookDataModel(DB_BUYBOOK);
+			Date date = new Date();
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			dateSearch=new DateSearch();
+			dateSearch.setDate(dateFormat.format(date));
+			bdm = bookModelControl.getBookDataModel(DB_BUYBOOK,dateSearch);
 			jtb.setModel(bdm);
 			statisticsViewInit(bdm,jtb,STATISTIC_COST);
 		}else if(e.getSource()==jbt7){
 			//list books were sold today
 			jlb2.setText("Today's Profit");
-			bdm = bookModelControl.getBookDataModel(DB_SELLBOOK);
+			Date date = new Date();
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			dateSearch=new DateSearch();
+			dateSearch.setDate(dateFormat.format(date));
+			bdm = bookModelControl.getBookDataModel(DB_SELLBOOK,dateSearch);
 			jtb.setModel(bdm);
 			statisticsViewInit(bdm,jtb,STATISTIC_PROF);
+		}else if(e.getSource()==jbt8){
+			//list cost or profit
+			
+			String title = (String) comboBox.getSelectedItem();
+
+			dateSearch=new DateSearch();
+			dateSearch.setDate(jtf1.getText());
+			jlb2.setText(title+" of "+jtf1.getText());
+			if(title.equalsIgnoreCase("cost")){
+				bdm = bookModelControl.getBookDataModel(DB_BUYBOOK,dateSearch);
+				jtb.setModel(bdm);
+				statisticsViewInit(bdm,jtb,STATISTIC_COST);
+			}else if(title.equalsIgnoreCase("profit")){
+				bdm = bookModelControl.getBookDataModel(DB_SELLBOOK,dateSearch);
+				jtb.setModel(bdm);
+				statisticsViewInit(bdm,jtb,STATISTIC_PROF);
+			}
 		}
 	}
 

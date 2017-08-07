@@ -7,6 +7,7 @@ import javax.swing.table.AbstractTableModel;
 
 import com.js.book.Book;
 import com.js.book.BookManageWindow;
+import com.js.book.DateSearch;
 import com.js.bookcontrol.BookDataControl;
 
 public class BookDataModel extends AbstractTableModel{
@@ -18,31 +19,36 @@ public class BookDataModel extends AbstractTableModel{
 	List<Book> bookList=null;
 	BookDataControl dataControl = null;
 	
-	public void init(String ... strs){
+	public void init(Object ... objs){
 		columnNames = new Vector<Object>();
 		columnNames.add("Book");
 		columnNames.add("Price(Purchase)");
 		columnNames.add("Price(Sales)");
-		if(strs.length==1 && strs[0] != BookManageWindow.DB_BOOK){
-			if(strs[0] == BookManageWindow.DB_BUYBOOK){
+		if(objs.length==2 && objs[1].getClass() == DateSearch.class){
+			if(objs[0] == BookManageWindow.DB_BUYBOOK){
 				columnNames.add("Quantity (Purchase)");
-			}else if(strs[0] == BookManageWindow.DB_SELLBOOK){
+			}else if(objs[0] == BookManageWindow.DB_SELLBOOK){
 				columnNames.add("Quantity (Sales)");
 			}
 			columnNames.add("Date");
 		}else{
 			columnNames.add("Quantity in Stock");
 		}
+
 		rowData = new Vector<Object>();
-		if(strs.length==1){
+		if(objs.length==1){
 			dataControl = new BookDataControl();
-			bookList = dataControl.getBooks(strs[0]);
-		}else if(strs.length==2 && strs[1].equalsIgnoreCase("search")){
+			bookList = dataControl.getBooks((String) objs[0]);
+		}else if(objs.length==2 && objs[1].getClass() == DateSearch.class){
+			dataControl = new BookDataControl();
+			DateSearch dateSearch = (DateSearch) objs[1];
+			bookList = dataControl.getBooks((String) objs[0],dateSearch.getDate());
+		}else if(objs.length==2 && ((String)objs[1]).equalsIgnoreCase("search")){
 				dataControl = new BookDataControl();
-				bookList = dataControl.searchBook(strs[0]);
-		}else if(strs.length==2 && strs[1].equalsIgnoreCase("delete")){
+				bookList = dataControl.searchBook((String) objs[0]);
+		}else if(objs.length==2 && ((String) objs[1]).equalsIgnoreCase("delete")){
 				 dataControl = new BookDataControl();
-				 dataControl.deleteBook(strs[0]);
+				 dataControl.deleteBook((String) objs[0]);
 				 bookList = dataControl.getBooks(BookManageWindow.DB_BOOK);
 		}
 		for(Book b:bookList){
@@ -51,7 +57,7 @@ public class BookDataModel extends AbstractTableModel{
 			data.add(b.getBuyPrice());
 			data.add(b.getSellPrice());
 			data.add(b.getBookNum());
-			if(strs.length==1 && strs[0] != BookManageWindow.DB_BOOK){
+			if(objs.length==2 && objs[1].getClass() != String.class){
 				data.add(b.getDate());
 			}
 			rowData.add(data);
@@ -67,6 +73,12 @@ public class BookDataModel extends AbstractTableModel{
 		init(db);
 	}
 	
+
+	public BookDataModel(String db, DateSearch dateSearch) {
+		// TODO Auto-generated constructor stub
+		init(db,dateSearch);
+	}
+
 
 	@Override
 	public int getRowCount() {
