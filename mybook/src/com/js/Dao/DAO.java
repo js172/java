@@ -3,7 +3,7 @@ package com.js.Dao;
 import java.util.List;
 
 public interface DAO<T> {
-	//get list of T
+	//get list of T(BOOK)
 	List<T> getList(String sql,Object...args);
 	
 	//get an element

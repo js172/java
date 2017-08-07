@@ -56,7 +56,6 @@ public class Book {
 		
 	}
 	
-	
 	@Override
 	public String toString() {
 		return "Book [bookName=" + bookName + ", buyPrice=" + buyPrice + ", sellPrice=" + sellPrice + ", bookNum=" + bookNum + "]";

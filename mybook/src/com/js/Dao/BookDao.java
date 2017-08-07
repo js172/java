@@ -8,9 +8,8 @@ import java.util.List;
 
 import com.js.book.Book;
 import com.js.jdbc.JDBCTools;
-
+//DAO implement
 public class BookDao extends DaoImpl<Book>{
-
 	@Override
 	public List<Book> getList(String sql, Object... args) {
 		List<Book> bookList = new ArrayList<>();
